@@ -5,18 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./menu-style.css">
 </head>
 
 <body>
-    <div class="menu">
-        <h2>Menu</h2>
-        <div id="menu-items">
-            <!-- Menu items will be dynamically loaded here -->
-        </div>
-        <button onclick="selectOrderType('Dine-in')">Dine In</button>
-        <button onclick="selectOrderType('Takeaway')">Takeaway</button>
+
+    <!-- HERO SECTION -->
+    <div class="menu-hero">
+        <h1>Ahara Leaf</h1>
+        <p>Fresh • Hygienic • Delicious</p>
     </div>
+
+    <!-- MAIN MENU CONTAINER -->
+    <div class="menu-container">
+
+        <h2 class="menu-title">Explore Our Menu</h2>
+
+        <div id="menu-items"></div>
+
+    </div>
+
+    <!-- ORDER TYPE BAR -->
+    <div class="order-bar">
+        <button onclick="selectOrderType('Dine-in')" class="order-btn">Dine In</button>
+        <button onclick="selectOrderType('Takeaway')" class="order-btn takeaway">Takeaway</button>
+    </div>
+
     <script>
         // Function to fetch menu items from the API
         async function fetchMenuItems() {
@@ -51,8 +65,8 @@
                     <span class="item-price">Rs ${item.price}</span>
                 `;
 
-                    itemsList.appendChild(menuItemDiv);
-                });
+                        itemsList.appendChild(menuItemDiv);
+                    });
 
                     categoryDiv.appendChild(itemsList);
                     menuItemsContainer.appendChild(categoryDiv);

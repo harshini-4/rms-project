@@ -1,115 +1,190 @@
-/* General Body */
-body {
-    font-family: 'Poppins', sans-serif;
+/* ================= GLOBAL ================= */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f3e8ff, #ffffff);
+    min-height: 100vh;
+}
+
+/* ================= HEADER ================= */
+.menu-header {
     text-align: center;
-    background-color: #f8f8f8;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #6a0dad, #9c27b0);
+    color: #fff;
 }
 
-/* Menu Container */
-.menu {
-    width: 70%;
-    margin: 30px auto;
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    border-top: 6px solid #6a0dad; /* Purple accent */
-}
-
-/* Menu Heading */
-.menu h2 {
-    margin-bottom: 25px;
-    color: #6a0dad;
-    font-size: 32px;
-    font-weight: 600;
-}
-
-/* Menu Categories */
-.menu-category {
-    margin-bottom: 20px;
-}
-
-.menu-category h3 {
-    background-color: #6a0dad;
-    color: #ffcc00;
-    padding: 10px 15px;
-    border-radius: 8px;
-    text-align: left;
-    font-size: 20px;
+.menu-header h1 {
+    font-size: 36px;
     margin-bottom: 10px;
 }
 
-/* Menu Items */
-.menu-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.menu-header p {
+    opacity: 0.9;
 }
 
+/* ================= MAIN CONTAINER ================= */
+.menu-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto 120px auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* ================= CATEGORY ================= */
+.menu-category {
+    margin-bottom: 40px;
+}
+
+.menu-category h3 {
+    margin-bottom: 15px;
+    color: #6a0dad;
+    font-size: 22px;
+    border-left: 5px solid #6a0dad;
+    padding-left: 10px;
+}
+
+/* Items inside a category in a row */
+.menu-list {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* ================= MENU ITEM ================= */
 .menu-item {
-    display: grid;
-    grid-template-columns: 1fr 2fr 3fr 1fr 1fr;
-    align-items: center;
-    padding: 12px 15px;
-    border-radius: 8px;
-    background-color: #f3e5ff; /* Light purple */
-    transition: transform 0.2s, box-shadow 0.2s;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    position: relative;
+    min-width: 220px;
+    flex: 1 1 220px;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 
 .menu-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.menu-item span {
-    padding: 5px;
+.item-no {
+    font-weight: bold;
+    color: #9c27b0;
 }
 
-/* Buttons for Dine-in/Takeaway */
-.menu button {
-    background-color: #6a0dad;
-    color: #ffcc00;
-    border: none;
-    padding: 12px 25px;
-    margin: 20px 10px 0 10px;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
+.item-name {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 8px 0;
 }
 
-.menu button:hover {
-    background-color: #5a009d;
+.item-description {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 10px;
 }
 
-/* Quantity Buttons */
+.item-price {
+    display: block;
+    font-weight: bold;
+    color: #6a0dad;
+}
+
+/* ================= QUANTITY BUTTONS ================= */
 .quantity {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     gap: 5px;
 }
 
 .quantity button {
-    background: #6a0dad;
-    color: #ffcc00;
+    width: 28px;
+    height: 28px;
     border: none;
-    padding: 5px 12px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 0 5px;
     border-radius: 6px;
-    transition: 0.3s;
+    background: #6a0dad;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 .quantity button:hover {
-    background-color: #5a009d;
+    background: #4a0072;
 }
 
 .quantity span {
-    font-size: 18px;
     min-width: 20px;
     text-align: center;
+    font-weight: bold;
+}
+
+/* ================= CART BAR ================= */
+.cart-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.proceed-btn {
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: none;
+    background: #6a0dad;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.proceed-btn:hover {
+    background: #4a0072;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .menu-header h1 {
+        font-size: 28px;
+    }
+
+    .menu-list {
+        justify-content: center;
+    }
+
+    .menu-item {
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-item {
+        min-width: 140px;
+        padding: 15px;
+    }
+
+    .quantity button {
+        width: 24px;
+        height: 24px;
+    }
 }

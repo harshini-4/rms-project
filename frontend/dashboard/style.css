@@ -1,8 +1,13 @@
 /* ================= GLOBAL ================= */
-body {
+* {
     margin: 0;
-    font-family: 'Poppins', Arial, sans-serif;
-    background-color: #f8f8f8;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f6fb;
 }
 
 /* ================= DASHBOARD WRAPPER ================= */
@@ -13,68 +18,79 @@ body {
 
 /* ================= SIDEBAR ================= */
 .sidebar {
-    width: 220px;
-    background-color: lavender; /* Purple */
-    color: #ffcc00;            /* Yellow */
+    width: 240px;
+    background: linear-gradient(180deg, #6a0dad, #9c27b0);
+    color: white;
+    padding: 25px 20px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
 }
 
 .sidebar h2 {
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 20px;
+    margin-bottom: 40px;
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 1px;
 }
 
 .sidebar button {
     margin-bottom: 15px;
     padding: 12px;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    background-color: #6a0dad;
-    color: #ffcc00;
-    transition: 0.2s;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    transition: 0.3s ease;
 }
 
 .sidebar button:hover {
-    background-color: #5a009d;
+    background: rgba(255,255,255,0.3);
+    transform: translateX(5px);
 }
 
-.sidebar .logout-btn {
-    background-color: #ff4d4d;
-    color: #fff;
+.logout-btn {
+    margin-top: auto;
+    background: #ff4d4d !important;
 }
 
-.sidebar .logout-btn:hover {
-    background-color: #6a0dad;
-    color: #ffcc00;
+.logout-btn:hover {
+    background: #ff1a1a !important;
 }
 
 /* ================= MAIN CONTENT ================= */
 .main-content {
     flex: 1;
-    padding: 20px;
+    padding: 30px;
 }
 
-/* ================= SECTIONS ================= */
+/* ================= SECTION CARDS ================= */
 #ordersContainer,
 #orderDetailsContainer,
 #revenueContainer {
-    background-color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
+    background: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 /* ================= HEADINGS ================= */
-h2, h3 {
+h2 {
     color: #6a0dad;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+h3 {
+    margin-top: 20px;
     margin-bottom: 10px;
+    color: #444;
 }
 
 /* ================= TABLES ================= */
@@ -85,45 +101,52 @@ table {
     font-size: 14px;
 }
 
-table th {
-    background-color: #6a0dad;
-    color: #ffcc00;
-    padding: 8px;
+table thead {
+    background: #6a0dad;
+    color: white;
 }
 
-table td {
-    padding: 8px;
+table th, table td {
+    padding: 12px;
     text-align: center;
-    border: 1px solid #ddd;
 }
 
-table tbody tr:nth-child(even) {
-    background-color: #f9f4ff;
-}
-
-/* Table action buttons */
-.table-btn {
-    padding: 6px 10px;
-    font-size: 14px;
-    font-weight: 600;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    background-color: lavender; /* Purple */
-    color: #ffcc00;           /* Yellow */
+table tbody tr {
+    border-bottom: 1px solid #eee;
     transition: 0.2s;
 }
 
-/* Extra charges and feedback text */
+table tbody tr:hover {
+    background-color: #f3e8ff;
+}
+
+/* ================= TABLE BUTTON ================= */
+.table-btn {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: none;
+    background: #6a0dad;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+.table-btn:hover {
+    background: #4a0072;
+}
+
+/* ================= EXTRA INFO ================= */
 #extraChargeMessage {
-    color: #ff0000;
-    font-weight: 600;
     margin-top: 10px;
+    font-weight: 600;
+    color: red;
 }
 
 #feedbackStars {
     color: #ffcc00;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -142,5 +165,17 @@ table tbody tr:nth-child(even) {
     .sidebar button {
         flex: 1 1 40%;
         margin: 5px;
+    }
+}
+
+/* ================= ANIMATION ================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

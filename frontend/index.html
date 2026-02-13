@@ -4,34 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Ahara Leaf | Home</title>
     <link rel="stylesheet" href="./style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <h1>Ahara Leaf</h1>
-        <button id="adminLogin" class="hidden" onclick="redirectToLogin()">Admin Login</button>
+        <h1 class="logo">Ahara Leaf</h1>
+
+        <div class="header-buttons">
+            <button id="themeToggle">🌙</button>
+            <button id="adminLogin" class="hidden" onclick="redirectToLogin()">Admin Login</button>
+        </div>
     </header>
 
     <main class="container">
         <div class="content">
-            <h2>Welcome</h2>
-            <p>Delicious meals, just a click away!</p>
+            <h2>Fresh • Authentic • Delicious</h2>
+            <p>Experience the taste of tradition with every bite. Order your favorite meals in just one click.</p>
 
             <div class="buttons">
-                <button onclick="redirectToMenuHomepage()">View Menu</button>
+                <button class="primary-btn" onclick="redirectToMenuHomepage()">View Menu</button>
             </div>
         </div>
 
         <div class="image-section">
-            <img src="./homepage-img.jpg" alt="Delicious food">
+            <div class="carousel">
+                <div class="slides">
+                    <img src="./homepage-img.jpg" class="slide active">
+                    <img src="./homepage-img2.jpg" class="slide">
+                    <img src="./homepage-img3.jpg" class="slide">
+                    <img src="./homepage-img4.jpg" class="slide active">
+                </div>
+
+                <button class="prev">&#10094;</button>
+                <button class="next">&#10095;</button>
+            </div>
         </div>
     </main>
 
     <footer>
-        © 2025 Restaurant Management System | Ahara Leaf
+        © 2025 Ahara Leaf | Restaurant Management System
     </footer>
 
     <script>
@@ -47,6 +61,55 @@
                 adminLogin.classList.toggle("hidden");
             }
         });
+
+        // DARK MODE TOGGLE
+        const themeToggle = document.getElementById("themeToggle");
+
+        // Load saved theme
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+            themeToggle.textContent = "☀️";
+        }
+
+        themeToggle.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeToggle.textContent = "☀️";
+            } else {
+                localStorage.setItem("theme", "light");
+                themeToggle.textContent = "🌙";
+            }
+        });
+
+        // IMAGE CAROUSEL
+        const slides = document.querySelectorAll(".slide");
+        const nextBtn = document.querySelector(".next");
+        const prevBtn = document.querySelector(".prev");
+
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove("active"));
+            slides[index].classList.add("active");
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(currentIndex);
+        }
+
+        nextBtn.addEventListener("click", nextSlide);
+        prevBtn.addEventListener("click", prevSlide);
+
+        // Auto slide every 4 seconds
+        setInterval(nextSlide, 4000);
     </script>
 </body>
 
