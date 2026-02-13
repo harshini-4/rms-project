@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Order Summary</h1>
+
+        <div id="order-summary">
+            <!-- Order details will be populated here -->
+        </div>
+
+        <div class="order-total">
+            <p>Total: Rs <span id="total-amount">0.00</span></p>
+            <p id="additional-charges"></p>
+        </div>
+        <p style="text-align: center;"><strong>Final Total: Rs <span id="final-total">0.00</span></strong></p>
+        
+
+        <div class="actions">
+            <button type="button" onclick="confirmOrder()">Confirm Order</button>
+            <button type="button" onclick="cancelOrder()">Cancel Order</button>
+        </div>
+    </div>
+
+    <script>
+        // Retrieve order data from localStorage
+        const cart = JSON.parse(localStorage.getItem("cart"));
+        const orderType = localStorage.getItem("orderType");
+
+        // Function to calculate and display order details
+        function displayOrderSummary() {
+            const orderSummaryContainer = document.getElementById("order-summary");
+            const totalAmountElement = document.getElementById("total-amount");
+            const additionalChargesElement = document.getElementById("additional-charges");
+            const finalTotalElement = document.getElementById("final-total");
+
+            let totalAmount = 0;
+            let additionalCharges = 0;
+            let finalTotal = 0;
+
+            orderSummaryContainer.innerHTML = ''; // Clear previous content
+
+            cart.forEach(item => {
+                totalAmount += item.price * item.quantity;
+
+                const itemDiv = document.createElement("div");
+                itemDiv.classList.add("order-item");
+                itemDiv.innerHTML = `
+                    <span>${item.quantity} x ${item.name} (Rs ${item.price})</span>
+                    <span>Rs ${(item.quantity * item.price).toFixed(2)}</span>
+                `;
+                orderSummaryContainer.appendChild(itemDiv);
+            });
+
+            // Display only additional charges separately if it's Takeaway
+            if (orderType === "Takeaway") {
+                additionalCharges = 15.00;
+                additionalChargesElement.textContent = `Additional Charges (Takeaway): Rs ${additionalCharges.toFixed(2)}`;
+                finalTotal = totalAmount + additionalCharges;
+            } else {
+                additionalChargesElement.textContent = '';
+            }
+
+            // Always calculate final total
+            finalTotal = totalAmount + additionalCharges;
+
+            totalAmountElement.textContent = totalAmount.toFixed(2);   // Just items total
+            finalTotalElement.textContent = finalTotal.toFixed(2);     // Final total with takeaway if applicable
+        }
+
+        // Function to confirm the order
+        async function confirmOrder() {
+            const orderId = localStorage.getItem("orderId");
+
+            // Show confirmation alert
+            const userConfirmed = window.confirm("By confirming, you are proceeding to pay. Once confirmed, this action cannot be undone. Do you wish to proceed?");
+
+            if (!userConfirmed) {
+                return; // Cancel the action if user declines
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5000/order/confirm-order/${orderId}`, {
+                    method: "PUT"
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert("Order confirmed! Proceeding to payment.");
+                    // Optionally, you can store the updated total amount in localStorage for use on the payment page
+                    localStorage.setItem("updatedTotalAmount", data.updatedTotalAmount);
+                    window.location.href = "../payment/payment.html"; // Redirect to payment page
+                } else {
+                    alert(data.error || "Failed to confirm the order.");
+                }
+            } catch (error) {
+                console.error("Error confirming order:", error);
+                alert("An error occurred while confirming the order.");
+            }
+        }
+
+        // Function to cancel the order
+        async function cancelOrder() {
+            try {
+                // Get the orderId from localStorage
+                const orderId = localStorage.getItem("orderId");
+
+                // Ensure orderId exists before making the request
+                if (!orderId) {
+                    alert("Order ID not found.");
+                    return;
+                }
+
+                const response = await fetch(`http://localhost:5000/order/cancel-order/${orderId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                });
+
+                const data = await response.json();
+                if (data.message === "Order cancelled") {
+                    alert("Your order has been cancelled.");
+                    window.location.href = "../index.html"; // Redirect to the homepage
+                } else {
+                    alert("Failed to cancel the order.");
+                }
+            } catch (error) {
+                console.error("Error cancelling order:", error);
+                alert("Error cancelling order. Please try again.");
+            }
+        }
+
+        // Initialize the order summary when the page loads
+        displayOrderSummary();
+    </script>
+</body>
+
+</html>

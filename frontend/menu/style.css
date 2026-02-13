@@ -1,0 +1,115 @@
+/* General Body */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #f8f8f8;
+}
+
+/* Menu Container */
+.menu {
+    width: 70%;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-top: 6px solid #6a0dad; /* Purple accent */
+}
+
+/* Menu Heading */
+.menu h2 {
+    margin-bottom: 25px;
+    color: #6a0dad;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+/* Menu Categories */
+.menu-category {
+    margin-bottom: 20px;
+}
+
+.menu-category h3 {
+    background-color: #6a0dad;
+    color: #ffcc00;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Menu Items */
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 1fr 1fr;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 8px;
+    background-color: #f3e5ff; /* Light purple */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.menu-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item span {
+    padding: 5px;
+}
+
+/* Buttons for Dine-in/Takeaway */
+.menu button {
+    background-color: #6a0dad;
+    color: #ffcc00;
+    border: none;
+    padding: 12px 25px;
+    margin: 20px 10px 0 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.menu button:hover {
+    background-color: #5a009d;
+}
+
+/* Quantity Buttons */
+.quantity {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity button {
+    background: #6a0dad;
+    color: #ffcc00;
+    border: none;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 5px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.quantity button:hover {
+    background-color: #5a009d;
+}
+
+.quantity span {
+    font-size: 18px;
+    min-width: 20px;
+    text-align: center;
+}

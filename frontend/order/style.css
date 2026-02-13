@@ -1,0 +1,111 @@
+/* Container for Order Summary */
+.container {
+    width: 70%;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-top: 6px solid #6a0dad; /* Purple accent */
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Page Heading */
+.container h1 {
+    color: #6a0dad;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Order items */
+#order-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.order-item {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    padding: 12px 15px;
+    border-radius: 8px;
+    background-color: #f3e5ff;
+    transition: transform 0.2s, box-shadow 0.2s;
+    align-items: center;
+}
+
+.order-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Order Total Section */
+.order-total {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 2px solid #6a0dad; /* subtle separator */
+    border-bottom: 2px solid #6a0dad; /* subtle separator */
+    text-align: right;
+}
+
+.order-total p {
+    font-size: 18px;
+    margin: 5px 0;
+    color: #333;
+}
+
+p strong {
+    font-size: 20px;
+    text-align: right;
+    color: #6a0dad;
+}
+
+/* Buttons */
+.actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.actions button {
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+}
+
+/* Confirm button */
+.confirm-btn {
+    background-color: #6a0dad;
+    color: #ffcc00;
+}
+
+.confirm-btn:hover {
+    background-color: #5a009d;
+}
+
+/* Cancel button */
+.cancel-btn {
+    background-color: #ffcc00;
+    color: #6a0dad;
+}
+
+.cancel-btn:hover {
+    background-color: #e6b800;
+}
+
+.totals p#additional-charges {
+    color: #6a0dad;
+    font-weight: 600;
+    background-color: #ffcc00;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin: 5px 0;
+}

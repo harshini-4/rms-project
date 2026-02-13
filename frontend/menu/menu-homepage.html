@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="menu">
+        <h2>Menu</h2>
+        <div id="menu-items">
+            <!-- Menu items will be dynamically loaded here -->
+        </div>
+        <button onclick="selectOrderType('Dine-in')">Dine In</button>
+        <button onclick="selectOrderType('Takeaway')">Takeaway</button>
+    </div>
+    <script>
+        // Function to fetch menu items from the API
+        async function fetchMenuItems() {
+            try {
+                const response = await fetch("http://localhost:5000/menu/");
+                const data = await response.json();
+                const menuItemsContainer = document.getElementById("menu-items");
+                menuItemsContainer.innerHTML = '';
+
+                Object.keys(data).forEach(category => {
+                    const categoryDiv = document.createElement("div");
+                    categoryDiv.classList.add("menu-category");
+
+                    const categoryTitle = document.createElement("h3");
+                    categoryTitle.textContent = category;
+                    categoryDiv.appendChild(categoryTitle);
+
+                    const itemsList = document.createElement("div");
+                    itemsList.classList.add("menu-list");
+
+                    data[category].forEach(item => {
+                        const menuItemDiv = document.createElement("div");
+                        menuItemDiv.classList.add("menu-item");
+
+                        menuItemDiv.setAttribute("data-item_no", item.item_no);
+                        menuItemDiv.setAttribute("data-name", item.name);
+
+                        menuItemDiv.innerHTML = `
+                    <span class="item-no">${item.item_no}</span>
+                    <span class="item-name">${item.name}</span>
+                    <span class="item-description">${item.description}</span>
+                    <span class="item-price">Rs ${item.price}</span>
+                `;
+
+                    itemsList.appendChild(menuItemDiv);
+                });
+
+                    categoryDiv.appendChild(itemsList);
+                    menuItemsContainer.appendChild(categoryDiv);
+                });
+            } catch (error) {
+                console.error("Failed to fetch menu items:", error);
+            }
+        }
+        // Fetch the menu items when the page loads
+        fetchMenuItems();
+        function selectOrderType(orderType) {
+            localStorage.setItem("orderType", orderType);
+            window.location.href = "../menu/menu.html";
+        }
+    </script>
+</body>
+
+</html>

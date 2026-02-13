@@ -1,0 +1,146 @@
+/* ================= GLOBAL ================= */
+body {
+    margin: 0;
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #f8f8f8;
+}
+
+/* ================= DASHBOARD WRAPPER ================= */
+.board {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 220px;
+    background-color: lavender; /* Purple */
+    color: #ffcc00;            /* Yellow */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+.sidebar button {
+    margin-bottom: 15px;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #6a0dad;
+    color: #ffcc00;
+    transition: 0.2s;
+}
+
+.sidebar button:hover {
+    background-color: #5a009d;
+}
+
+.sidebar .logout-btn {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+.sidebar .logout-btn:hover {
+    background-color: #6a0dad;
+    color: #ffcc00;
+}
+
+/* ================= MAIN CONTENT ================= */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* ================= SECTIONS ================= */
+#ordersContainer,
+#orderDetailsContainer,
+#revenueContainer {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+/* ================= HEADINGS ================= */
+h2, h3 {
+    color: #6a0dad;
+    margin-bottom: 10px;
+}
+
+/* ================= TABLES ================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+table th {
+    background-color: #6a0dad;
+    color: #ffcc00;
+    padding: 8px;
+}
+
+table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f4ff;
+}
+
+/* Table action buttons */
+.table-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: lavender; /* Purple */
+    color: #ffcc00;           /* Yellow */
+    transition: 0.2s;
+}
+
+/* Extra charges and feedback text */
+#extraChargeMessage {
+    color: #ff0000;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+#feedbackStars {
+    color: #ffcc00;
+    font-size: 20px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .board {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .sidebar button {
+        flex: 1 1 40%;
+        margin: 5px;
+    }
+}

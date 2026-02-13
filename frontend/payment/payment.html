@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Payment</title>
+    <link rel="stylesheet" href="./pay.css">
+</head>
+
+<body>
+    <div class="payment-container">
+        <h2>Complete Your Payment</h2>
+
+        <div class="total-box">
+            Total Amount: Rs <span id="totalAmount"></span>
+        </div>
+
+        <h3>Select Payment Method</h3>
+
+        <!-- Button to show UPI input section -->
+        <button onclick="showUpiInput()">Pay via UPI</button>
+
+        <!-- UPI input section (hidden by default) -->
+        <div id="upiSection" class="hidden">
+            <input type="text" id="upiId" placeholder="Enter UPI ID">
+            <button onclick="processPayment('UPI')">Pay Now</button>
+        </div>
+
+        <br><br>
+
+        <!-- Dropdown for Pay at Counter (Cash/Card) -->
+        <div id="payAtCounterSection">
+            <label><strong>Pay at Counter via:</strong></label>
+            <select id="paymentMethodSelect" onchange="togglePlaceOrderButton()">
+                <option value="" disabled selected>Select</option>
+                <option value="Cash">Cash</option>
+                <option value="Card">Card</option>
+            </select>
+
+            <!-- Place order button (shown when Cash or Card is selected) -->
+            <button id="placeOrderButton" class="hidden" onclick="processPaymentFromDropdown()">Place Order</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to show UPI input field
+        function showUpiInput() {
+            document.getElementById("upiSection").classList.remove("hidden");
+        }
+
+        // Function to toggle visibility of the "Place Order" button for Cash/Card payment
+        function togglePlaceOrderButton() {
+            const paymentMethodSelect = document.getElementById("paymentMethodSelect");
+            const placeOrderButton = document.getElementById("placeOrderButton");
+
+            if (paymentMethodSelect.value === "Cash" || paymentMethodSelect.value === "Card") {
+                placeOrderButton.classList.remove("hidden");
+            } else {
+                placeOrderButton.classList.add("hidden");
+            }
+        }
+
+        // Function to process the payment based on the method selected in the dropdown
+        async function processPaymentFromDropdown() {
+            const paymentMethodSelect = document.getElementById("paymentMethodSelect");
+            const paymentMethod = paymentMethodSelect.value;
+
+            if (!paymentMethod) {
+                alert("Please select a payment method.");
+                return;
+            }
+
+            const orderNo = localStorage.getItem("orderId");
+            let totalAmount = localStorage.getItem("updatedTotalAmount");
+
+            if (!orderNo) {
+                alert("Order number is missing.");
+                return;
+            }
+
+            // Round the total amount to 2 decimal places before passing to backend or URL
+            totalAmount = parseFloat(totalAmount).toFixed(2);
+
+            try {
+                // Send payment details to backend based on the selected payment method (Cash or Card)
+                const paymentData = {
+                    order_no: orderNo,
+                    payment_method: paymentMethod
+                };
+
+                const response = await fetch("http://localhost:5000/payment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(paymentData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // After successful payment, redirect to receipt page
+                    localStorage.setItem("paymentMethod", paymentMethod);
+                    window.location.href = `receipt.html?order_no=${orderNo}&amount=${totalAmount}&method=${paymentMethod}`;
+                } else {
+                    alert(`Payment failed: ${data.error}`);
+                }
+            } catch (error) {
+                alert("Payment failed. Please try again.");
+            }
+        }
+
+        // Function to process the UPI payment
+        async function processPayment(paymentMethod) {
+            const upiId = document.getElementById("upiId").value;
+
+            if (!upiId) {
+                alert("Please enter your UPI ID.");
+                return;
+            }
+
+            const orderNo = localStorage.getItem("orderId");
+            let totalAmount = localStorage.getItem("updatedTotalAmount");
+
+            if (!orderNo) {
+                alert("Order number is missing.");
+                return;
+            }
+
+            // Round the total amount to 2 decimal places before passing to backend or URL
+            totalAmount = parseFloat(totalAmount).toFixed(2);
+
+            try {
+                // Send payment details to backend based on the selected payment method (UPI)
+                const paymentData = {
+                    order_no: orderNo,
+                    payment_method: paymentMethod,
+                    upi_id: upiId
+                };
+
+                const response = await fetch("http://localhost:5000/payment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(paymentData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // After successful payment, redirect to receipt page, passing the UPI ID as a query parameter
+                    localStorage.setItem("paymentMethod", paymentMethod);
+                    window.location.href = `receipt.html?order_no=${orderNo}&amount=${totalAmount}&method=${paymentMethod}&upi_id=${upiId}`;
+                } else {
+                    alert(`Payment failed: ${data.error}`);
+                }
+            } catch (error) {
+                alert("Payment failed. Please try again.");
+            }
+        }
+
+        // Display the total amount when the page loads
+        window.onload = function () {
+            let totalAmount = localStorage.getItem("updatedTotalAmount");
+
+            // Round the totalAmount to two decimal places and display it
+            totalAmount = parseFloat(totalAmount).toFixed(2) || "0.00";
+            document.getElementById("totalAmount").innerText = totalAmount;
+        }
+    </script>
+</body>
+
+</html>

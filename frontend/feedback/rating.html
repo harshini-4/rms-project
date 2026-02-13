@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rate Your Order</title>
+
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: #f8f8f8;
+        }
+
+        .feedback-container {
+            width: 360px;
+            margin: 60px auto;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-top: 6px solid #6a0dad;
+            text-align: center;
+        }
+
+        h3 {
+            color: #6a0dad;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .star-rating {
+            font-size: 32px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .star {
+            color: gray;
+            transition: 0.3s;
+        }
+
+        .star.selected {
+            color: #ffcc00;
+        }
+
+        button {
+            background-color: #6a0dad;
+            color: #ffcc00;
+            border: none;
+            padding: 12px 22px;
+            margin-top: 15px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #5a009d;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="feedback-container">
+        <h3>Rate Your Order Experience</h3>
+        <p>(Food + Service)</p>
+        <hr><br>
+
+        <!-- Order Number -->
+        <label>Order Number:</label>
+        <input type="number" id="orderNumber" placeholder="Order Number" required>
+
+        <!-- Star Rating -->
+        <div id="starRating" class="star-rating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+        </div>
+
+        <button onclick="submitRating()">Submit Rating</button>
+        <button onclick="goHome()">Go Home</button>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        const stars = document.querySelectorAll('.star');
+        let selectedRating = 0;
+
+        // Auto-fill order number from URL if available
+        const params = new URLSearchParams(window.location.search);
+        const orderNoFromURL = params.get("order_no");
+
+        if (orderNoFromURL) {
+            document.getElementById("orderNumber").value = orderNoFromURL;
+        }
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                selectedRating = parseInt(star.dataset.value);
+                updateStarRating(selectedRating);
+            });
+        });
+
+        function updateStarRating(rating) {
+            stars.forEach(star => {
+                star.classList.toggle(
+                    'selected',
+                    parseInt(star.dataset.value) <= rating
+                );
+            });
+        }
+
+        async function submitRating() {
+            const orderNumber = document.getElementById("orderNumber").value;
+            const messageDiv = document.getElementById("message");
+
+            if (!orderNumber || selectedRating === 0) {
+                messageDiv.textContent = "Please enter order number and select rating.";
+                messageDiv.style.color = "red";
+                return;
+            }
+
+            const ratingData = {
+                order_no: parseInt(orderNumber),
+                stars: selectedRating
+            };
+
+            try {
+                const response = await fetch("http://localhost:5000/feedback/rateOrder", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(ratingData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    messageDiv.textContent = result.message || "Thank you for your feedback!";
+                    messageDiv.style.color = "green";
+                } else {
+                    messageDiv.textContent = result.error || "Failed to submit rating.";
+                    messageDiv.style.color = "red";
+                }
+            } catch (error) {
+                messageDiv.textContent = "Server error. Please try again later.";
+                messageDiv.style.color = "red";
+            }
+        }
+
+        function goHome() {
+            window.location.href = "../index.html";
+        }
+
+    </script>
+
+</body>
+
+</html>

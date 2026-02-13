@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Employees</title>
+    <link rel="stylesheet" href="./emp.css">
+    <script defer src="manage-employees.js"></script>
+</head>
+<body>
+    <h2>Manage Employees</h2>
+
+    <!-- Form for Adding/Updating Employee -->
+    <form id="employeeForm">
+        <input type="hidden" id="employeeId"> <!-- Hidden field for update -->
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="text" id="phone" placeholder="Phone" required>
+        <input type="text" id="address" placeholder="Address">
+        <select id="role" required>
+            <option value="" disabled selected>Select Role</option>
+            <option value="Manager">Manager</option>
+            <option value="Chef">Chef</option>
+            <option value="Cook">Cook</option>
+            <option value="Cashier">Cashier</option>
+            <option value="Server">Server</option>
+        </select>
+        <button type="submit">Save Employee</button>
+    </form>
+
+    <!-- Employee List -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="employeeTable">
+            <!-- Employee records will be inserted here dynamically -->
+        </tbody>
+    </table>
+    <button onclick="goDashboard()">Back</button>
+</body>
+</html>

@@ -1,0 +1,98 @@
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: #f8f8f8;
+}
+
+.container {
+    width: 80%;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-top: 6px solid #6a0dad;
+}
+
+h1,
+h3 {
+    text-align: center;
+    color: #6a0dad;
+}
+
+.order-details p {
+    margin: 6px 0;
+    font-size: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th {
+    background-color: #6a0dad;
+    color: #ffcc00;
+    padding: 10px;
+}
+
+td {
+    background-color: #f3e5ff;
+    padding: 10px;
+    text-align: center;
+}
+
+.totals {
+    text-align: right;
+    margin-top: 15px;
+}
+
+.totals p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+#additional-charges {
+    background: #ffcc00;
+    color: #6a0dad;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.final-total {
+    font-size: 20px;
+    font-weight: bold;
+    color: #6a0dad;
+}
+
+.actions {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.btn {
+    background-color: #6a0dad;
+    color: #ffcc00;
+    border: none;
+    padding: 12px 22px;
+    margin: 8px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #5a009d;
+}
+
+.greeting {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.greeting p {
+    margin: 8px 0;
+}

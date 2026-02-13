@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Management</title>
+    <link rel="stylesheet" href="./menu.css">
+</head>
+<body>
+    <h2>Menu Management</h2>
+
+    <!-- Form for Adding/Updating Menu Item -->
+    <form id="menuForm">
+        <input type="hidden" id="itemNo"> <!-- Hidden field for updating -->
+        <input type="text" id="name" placeholder="Name" required>
+        <textarea id="description" placeholder="Description"></textarea>
+        <input type="number" id="price" placeholder="Price" min="0" step="0.01" required>
+        
+        <select id="menuType" required>
+            <option value="" disabled selected>Select Category</option>
+            <option value="Starter/Appetizers">Starter/Appetizers</option>
+            <option value="Beverages">Beverages</option>
+            <option value="Main Courses">Main Courses</option>
+            <option value="Desserts">Desserts</option>
+        </select>
+
+        <input type="text" id="tags" placeholder="Tags (comma separated)">
+        
+        <button type="submit">Save Menu Item</button>
+    </form>
+
+    <!-- Menu Item List -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Menu Category</th>
+                <th>Tags</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="menuTable">
+            <!-- Menu items will be inserted here dynamically -->
+        </tbody>
+    </table>
+    <button onclick="goDashboard()">Back</button>
+    
+    <script src="./modify-menu.js"></script>
+</body>
+</html>

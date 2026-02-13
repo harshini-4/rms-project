@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Ahara Leaf</h1>
+        <button id="adminLogin" class="hidden" onclick="redirectToLogin()">Admin Login</button>
+    </header>
+
+    <main class="container">
+        <div class="content">
+            <h2>Welcome</h2>
+            <p>Delicious meals, just a click away!</p>
+
+            <div class="buttons">
+                <button onclick="redirectToMenuHomepage()">View Menu</button>
+            </div>
+        </div>
+
+        <div class="image-section">
+            <img src="./homepage-img.jpg" alt="Delicious food">
+        </div>
+    </main>
+
+    <footer>
+        © 2025 Restaurant Management System | Ahara Leaf
+    </footer>
+
+    <script>
+        function redirectToLogin() {
+            window.location.href = "login/login.html";
+        }
+        function redirectToMenuHomepage() {
+            window.location.href = "menu/menu-homepage.html";
+        }
+        document.addEventListener("keydown", function (event) {
+            if (event.ctrlKey && event.shiftKey && event.key === "L") {
+                let adminLogin = document.getElementById("adminLogin");
+                adminLogin.classList.toggle("hidden");
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <link rel="stylesheet" href="./receipt.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Your Order Receipt</h1>
+
+        <!-- Order Details -->
+        <div class="order-details">
+            <p><strong>Order No:</strong> <span id="order-no"></span></p>
+            <p><strong>Order Type:</strong> <span id="order-type"></span></p>
+            <p><strong>Payment Method:</strong> <span id="payment-method"></span></p>
+            <p><strong>Payment Time:</strong> <span id="payment-time"></span></p>
+            <p><strong>Order Status:</strong> <span id="order-status"></span></p>
+        </div>
+
+        <!-- Order Summary -->
+        <h3>Order Summary</h3>
+        <div id="order-summary"></div>
+
+        <!-- Greeting -->
+        <div class="greeting">
+            <p>Thank you for choosing us! We hope you enjoy your meal</p>
+            <p>Please rate your order later.</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+            <button class="btn" onclick="printReceipt()">Print Receipt</button>
+            <button class="btn" onclick="redirectToRating()">Rate Your Order</button>
+            <button class="btn" onclick="goHome()">Go Home</button>
+        </div>
+    </div>
+
+    <script>
+        // URL params
+        const params = new URLSearchParams(window.location.search);
+        const orderNo = params.get("order_no");
+        const paymentMethod = params.get("method");
+        const upiId = params.get("upi_id");
+
+        const orderType = localStorage.getItem("orderType");
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        document.getElementById("order-no").textContent = orderNo;
+        document.getElementById("order-type").textContent = orderType;
+        document.getElementById("payment-method").textContent = paymentMethod;
+        document.getElementById("order-status").textContent =
+            paymentMethod === "UPI"
+                ? "Order placed successfully."
+                : "Order placed. Please pay at counter.";
+
+        // Fetch payment time
+        fetch("http://localhost:5000/payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                order_no: orderNo,
+                payment_method: paymentMethod,
+                upi_id: upiId || null
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("payment-time").textContent =
+                    data.payment_time || "Not available";
+            });
+
+        function displayOrderSummary() {
+            let total = 0;
+            let html = `
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+        `;
+
+            cart.forEach(item => {
+                const itemTotal = item.quantity * item.price;
+                total += itemTotal;
+
+                html += `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.quantity}</td>
+                    <td>Rs ${item.price}</td>
+                    <td>Rs ${itemTotal.toFixed(2)}</td>
+                </tr>
+            `;
+            });
+
+            html += `</table>`;
+
+            let finalTotal = total;
+
+            html += `<div class="totals">
+                    <p>Total: Rs ${total.toFixed(2)}</p>`;
+
+            if (orderType === "Takeaway") {
+                const extra = 15;
+                finalTotal += extra;
+                html += `<p id="additional-charges">Additional Charges (Takeaway): Rs ${extra.toFixed(2)}</p>`;
+            }
+
+            html += `<p class="final-total">Final Total: Rs ${finalTotal.toFixed(2)}</p></div>`;
+
+            document.getElementById("order-summary").innerHTML = html;
+
+            // Clear cart after receipt
+            localStorage.removeItem("cart");
+            localStorage.removeItem("updatedTotalAmount");
+        }
+
+        function printReceipt() {
+            window.print();
+        }
+
+        function redirectToRating() {
+            window.location.href = `../feedback/rating.html?order_no=${orderNo}`;
+        }
+
+        function goHome() {
+            window.location.href = "../index.html";
+        }
+
+
+        displayOrderSummary();
+    </script>
+
+</body>
+
+</html>
