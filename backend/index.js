@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+
 import adminRoutes from "./routes/admin.js";
 import menuRoutes from "./routes/menu.js";
 import orderRoutes from "./routes/order.js";
@@ -13,17 +14,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({
-    origin: "http://127.0.0.1:3000",
-    credentials: true
-}));
+app.use(cors());
 
 
 // Middleware to parse form data (x-www-form-urlencoded)
 app.use(express.urlencoded({ extended: true }));
 
 // Middleware to parse JSON data
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 
 // Default Route
 app.get("/", (req, res) => {
