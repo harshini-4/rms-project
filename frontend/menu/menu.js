@@ -3,7 +3,7 @@ let cart = []; // Store selected items and their quantities
 // Function to fetch menu items from the API
 async function fetchMenuItems() {
     try {
-        const response = await fetch("http://localhost:5000/menu/");
+        const response = await fetch("https://rms-project-backend.onrender.com/menu/");
         const data = await response.json();
         const menuItemsContainer = document.getElementById("menu-items");
         menuItemsContainer.innerHTML = ''; 
@@ -116,7 +116,7 @@ async function proceedToOrder() {
 
     try {
         // Send the order data to the backend (replace URL with your backend API URL)
-        const response = await fetch("http://localhost:5000/order/place-order", {
+        const response = await fetch("https://rms-project-backend.onrender.com/order/place-order", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

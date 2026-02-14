@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/employee"; // Change based on your backend
+const API_URL = "https://rms-project-backend.onrender.com/employee"; // Change based on your backend
 
 function goDashboard() {
     window.location.href = "../dashboard/dashboard.html";

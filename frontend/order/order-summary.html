@@ -87,7 +87,7 @@
             }
 
             try {
-                const response = await fetch(`http://localhost:5000/order/confirm-order/${orderId}`, {
+                const response = await fetch(`https://rms-project-backend.onrender.com/order/confirm-order/${orderId}`, {
                     method: "PUT"
                 });
                 const data = await response.json();
@@ -118,7 +118,7 @@
                     return;
                 }
 
-                const response = await fetch(`http://localhost:5000/order/cancel-order/${orderId}`, {
+                const response = await fetch(`https://rms-project-backend.onrender.com/order/cancel-order/${orderId}`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json"

@@ -59,7 +59,7 @@
                 : "Order placed. Please pay at counter.";
 
         // Fetch payment time
-        fetch("http://localhost:5000/payment", {
+        fetch("https://rms-project-backend.onrender.com/payment", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

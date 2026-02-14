@@ -87,7 +87,7 @@
                     payment_method: paymentMethod
                 };
 
-                const response = await fetch("http://localhost:5000/payment", {
+                const response = await fetch("https://rms-project-backend.onrender.com/payment", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(paymentData)
@@ -135,7 +135,7 @@
                     upi_id: upiId
                 };
 
-                const response = await fetch("http://localhost:5000/payment", {
+                const response = await fetch("https://rms-project-backend.onrender.com/payment", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(paymentData)

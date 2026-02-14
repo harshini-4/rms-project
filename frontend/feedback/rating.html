@@ -144,7 +144,7 @@
             };
 
             try {
-                const response = await fetch("http://localhost:5000/feedback/rateOrder", {
+                const response = await fetch("https://rms-project-backend.onrender.com/feedback/rateOrder", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(ratingData)

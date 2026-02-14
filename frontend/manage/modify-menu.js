@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/menu"; // API URL for menu routes
+const API_URL = "https://rms-project-backend.onrender.com/menu"; // API URL for menu routes
 
 function goDashboard() {
     window.location.href = "../dashboard/dashboard.html";

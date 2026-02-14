@@ -23,7 +23,7 @@ function formatDateTime(dateTime) {
 
 // Fetch Orders
 document.getElementById("viewOrdersButton").addEventListener("click", () => {
-    fetch("http://localhost:5000/order/fetch-all-orders")
+    fetch("https://rms-project-backend.onrender.com/order/fetch-all-orders")
         .then(response => response.json())
         .then(orders => {
             const ordersTableBody = document.getElementById("ordersTableBody");
@@ -54,7 +54,7 @@ document.getElementById("viewOrdersButton").addEventListener("click", () => {
 
 // Fetch Order Details
 function viewOrderDetails(orderId) {
-    fetch(`http://localhost:5000/order/fetch-order-details/${orderId}`)
+    fetch(`https://rms-project-backend.onrender.com/order/fetch-order-details/${orderId}`)
         .then(response => response.json())
         .then(details => {
             const detailsTableBody = document.getElementById("orderDetailsTableBody");
@@ -109,7 +109,7 @@ function viewOrderDetails(orderId) {
 
 // Fetch Today's Revenue & Completed Orders
 document.getElementById("viewRevenueButton").addEventListener("click", () => {
-    fetch("http://localhost:5000/order/daily-revenue")
+    fetch("https://rms-project-backend.onrender.com/order/daily-revenue")
         .then(response => response.json())
         .then(data => {
             document.getElementById("todayRevenue").innerText = `Rs ${data.todayRevenue}`;
